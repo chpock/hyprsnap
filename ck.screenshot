@@ -221,8 +221,8 @@ get_nth() {
 rofi_theme() {
     [ -n "$ROFI_THEME_FILE" ] || ROFI_THEME_FILE="$(mktemp)"
     {
-        if [ -r "$SELF_DIR/$1.rasi" ]; then
-            cat "$SELF_DIR/$1.rasi"
+        if [ -r "$SELF_DIR/$1.rasi" ] && [ -r "$SELF_DIR/common.rasi" ]; then
+            cat "$SELF_DIR/common.rasi" "$SELF_DIR/$1.rasi"
         else
             sed -n "/^--- $1.rasi/,/^---/{/^---/d;p}" "$SELF_FILE"
         fi
@@ -632,155 +632,171 @@ exit 0
 {
 
 --- area.rasi
+* {
+    background-color:       transparent;
+    border-color:           #1abc9c;
+    text-color:             #ecf0f1;
+    faded-text-color:       #bdc3c7;
+    normal-background:      #2c3e50;
+    alternate-background:   #34495e;
+    selected-background:    #16a085;
+    active-background:      #27ae60;
+    preview-background:     #000000;
+    scrollbar-handle-color: #7f8c8d;
+    placeholder-color:      #7f8c8d;
+    separator-color:        #95a5a6;
+}
 configuration {
     show-icons: true;
     cycle: false;
 }
 
-* {
-    background-color: transparent;
-}
-
 window {
-    padding: 0px;
-    border: 0;
-    width: calc(18% * @COLUMNS@);
+    padding:      0px;
+    border:       0;
+    width:        calc(18% * @COLUMNS@);
     transparency: "real";
-    anchor: north;
-    location: center;
 }
 
 mainbox {
-    padding: 0px;
-    margin: 0px;
-    children: [listview];
+    padding:  0px;
+    margin:   0px;
+    children: [ listview ];
 }
 
 listview {
-    columns: @COLUMNS@;
-    lines: 1;
+    columns:       @COLUMNS@;
+    lines:         1;
     fixed-columns: true;
-    spacing: 20px;
-    scrollbar: false;
-    cycle: false;
+    spacing:       20px;
+    scrollbar:     false;
 }
 
 element {
-    padding: 10px;
-    border-radius: 20px;
-    orientation: vertical;
-    spacing: 0px;
-    background-color: #2c3e50;
-    border-color: #1abc9c;
-    border: 2px;
-    spacing: 10px;
+    padding:          10px;
+    border-radius:    20px;
+    orientation:      vertical;
+    spacing:          0px;
+    background-color: var(normal-background);
+    border:           2px;
+    spacing:          10px;
 }
 
 element selected {
-    background-color: #16a085;
+    background-color: var(selected-background);
 }
 
 element normal.active {
-    background-color: #27ae60;
+    background-color: var(active-background);
 }
 
 element alternate.active {
-    background-color: #27ae60;
+    background-color: var(active-background);
 }
 
 element-icon {
-    background-color: Black;
-    border-radius: 10px;
-    size: 20%;
+    background-color: var(preview-background);
+    border-radius:    10px;
+    size:             20%;
 }
 
 element-text {
-    text-color: #ecf0f1;
     horizontal-align: 0.5;
 }
 ---
 
 --- main.rasi
+* {
+    background-color:       transparent;
+    border-color:           #1abc9c;
+    text-color:             #ecf0f1;
+    faded-text-color:       #bdc3c7;
+    normal-background:      #2c3e50;
+    alternate-background:   #34495e;
+    selected-background:    #16a085;
+    active-background:      #27ae60;
+    preview-background:     #000000;
+    scrollbar-handle-color: #7f8c8d;
+    placeholder-color:      #7f8c8d;
+    separator-color:        #95a5a6;
+}
 configuration {
     show-icons: false;
     cycle: false;
 }
 
-* {
-    background-color: transparent;
-}
-
 window {
-    padding: 0px;
-    border: 0px;
-    width: 60%;
+    padding:      0px;
+    border:       0px;
+    width:        60%;
     transparency: "real";
-    anchor: north;
-    location: center;
 }
 
 mainbox {
-    children: [wrap, listview-split];
+    children: [ wrap, listview-split ];
 }
 
 wrap {
-    expand: false;
+    expand:      false;
     orientation: vertical;
-    children: [inputbar, message];
+    children:    [ inputbar, message ];
 }
 
 icon-current-entry {
-    expand: false;
-    size: 40%;
-    background-color: #2c3e50;
-    border-radius: 20px;
-    border: 2px;
-    border-color: #1abc9c;
-    padding: 20px;
+    expand:           false;
+    size:             40%;
+    background-color: var(normal-background);
+    border-radius:    20px;
+    border:           2px;
+    padding:          20px;
 }
 
 element {
-    padding: 10px;
-    border-radius: 20px;
-    spacing: 0px;
-    background-color: #2c3e50;
-    border-color: #1abc9c;
-    border: 2px;
+    padding:          10px;
+    border-radius:    20px;
+    spacing:          0px;
+    background-color: var(normal-background);
+    border:           2px;
 }
 
 element selected {
-    background-color: #16a085;
-}
-
-element-icon {
-    size: 3em;
+    background-color: var(selected-background);
 }
 
 element-text {
-    text-color: #ecf0f1;
     padding: 0px 10px;
 }
 
 listview-split {
     orientation: horizontal;
-    children: [listview, icon-current-entry];
-    spacing: 40px;
+    children:    [ listview, icon-current-entry ];
+    spacing:     40px;
 }
 
 listview {
-    lines: 7;
+    lines:   7;
     spacing: 10px;
 }
 ---
 
 --- save.rasi
+* {
+    background-color:       transparent;
+    border-color:           #1abc9c;
+    text-color:             #ecf0f1;
+    faded-text-color:       #bdc3c7;
+    normal-background:      #2c3e50;
+    alternate-background:   #34495e;
+    selected-background:    #16a085;
+    active-background:      #27ae60;
+    preview-background:     #000000;
+    scrollbar-handle-color: #7f8c8d;
+    placeholder-color:      #7f8c8d;
+    separator-color:        #95a5a6;
+}
 configuration {
     show-icons: true;
     cycle: false;
-}
-
-* {
-    background-color: transparent;
 }
 
 element {
@@ -791,18 +807,17 @@ element {
 }
 
 element normal.normal {
-    background-color: #2c3e50;
-    text-color:       #bdc3c7;
+    background-color: var(normal-background);
+    text-color:       var(faded-text-color);
 }
 
 element selected.normal {
-    background-color: #16a085;
-    text-color:       #ecf0f1;
+    background-color: var(selected-background);
 }
 
 element alternate.normal {
-    background-color: #34495e;
-    text-color:       #bdc3c7;
+    background-color: var(alternate-background);
+    text-color:       var(faded-text-color);
 }
 
 element-text {
@@ -820,37 +835,35 @@ element-icon {
 }
 
 window {
-    padding: 0px;
-    border: 0px;
-    width: 60%;
+    padding:      0px;
+    border:       0px;
+    width:        60%;
     transparency: "real";
 }
 
 mainbox {
-    padding: 0;
-    border:  0;
-    spacing: 10px;
+    padding:  0;
+    border:   0;
+    spacing:  10px;
     children: [ inputbar, message, listview ];
 }
 
 message {
-    background-color: #2c3e50;
-    border-radius: 10px;
-    border: 2px;
-    border-color: #1abc9c;
-    padding: 8px 20px;
-    spacing:    0px;
+    background-color: var(normal-background);
+    border-radius:    10px;
+    border:           2px;
+    padding:          8px 20px;
+    spacing:          0px;
 }
 
 listview {
-    scrollbar:    true;
-    fixed-height: 0;
-    background-color: #2c3e50;
-    border-radius: 10px;
-    border: 2px;
-    border-color: #1abc9c;
-    padding: 15px 20px;
-    spacing:    0px;
+    scrollbar:        true;
+    fixed-height:     0;
+    background-color: var(normal-background);
+    border-radius:    10px;
+    border:           2px;
+    padding:          15px 20px;
+    spacing:          0px;
 }
 
 scrollbar {
@@ -858,36 +871,34 @@ scrollbar {
     padding:      0;
     handle-width: 8px ;
     border:       0;
-    handle-color: #7f8c8d;
+    handle-color: var(scrollbar-handle-color);
 }
 
 inputbar {
-    children:   [ "prompt", "textbox-prompt-colon", "entry" ];
-    background-color: #2c3e50;
-    border-radius: 10px;
-    border: 2px;
-    border-color: #1abc9c;
-    padding: 8px 20px;
-    spacing:    0px;
+    children:         [ "prompt", "textbox-prompt-colon", "entry" ];
+    background-color: var(normal-background);
+    border-radius:    10px;
+    border:           2px;
+    padding:          8px 20px;
+    spacing:          0px;
 }
 
 entry {
-    text-color:        #ecf0f1;
     cursor:            text;
     spacing:           0;
-    placeholder-color: #7f8c8d;
+    placeholder-color: var(placeholder-color);
     placeholder:       "Enter filename for screenshot file";
 }
 
 prompt {
     spacing:    0;
-    text-color: #1abc9c;
+    text-color: var(border-color);
 }
 
 textbox-prompt-colon {
     margin:     0px 0.3000em 0.0000em 0.0000em ;
     expand:     false;
     str:        ":";
-    text-color: #95a5a6;
+    text-color: var(separator-color);
 }
 ---

@@ -221,8 +221,8 @@ get_nth() {
 rofi_theme() {
     [ -n "$ROFI_THEME_FILE" ] || ROFI_THEME_FILE="$(mktemp)"
     {
-        if [ -r "$SELF_DIR/$1.rasi" ]; then
-            cat "$SELF_DIR/$1.rasi"
+        if [ -r "$SELF_DIR/$1.rasi" ] && [ -r "$SELF_DIR/common.rasi" ]; then
+            cat "$SELF_DIR/common.rasi" "$SELF_DIR/$1.rasi"
         else
             sed -n "/^--- $1.rasi/,/^---/{/^---/d;p}" "$SELF_FILE"
         fi

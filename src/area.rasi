@@ -3,64 +3,55 @@ configuration {
     cycle: false;
 }
 
-* {
-    background-color: transparent;
-}
-
 window {
-    padding: 0px;
-    border: 0;
-    width: calc(18% * @COLUMNS@);
+    padding:      0px;
+    border:       0;
+    width:        calc(18% * @COLUMNS@);
     transparency: "real";
-    anchor: north;
-    location: center;
 }
 
 mainbox {
-    padding: 0px;
-    margin: 0px;
-    children: [listview];
+    padding:  0px;
+    margin:   0px;
+    children: [ listview ];
 }
 
 listview {
-    columns: @COLUMNS@;
-    lines: 1;
+    columns:       @COLUMNS@;
+    lines:         1;
     fixed-columns: true;
-    spacing: 20px;
-    scrollbar: false;
-    cycle: false;
+    spacing:       20px;
+    scrollbar:     false;
 }
 
 element {
-    padding: 10px;
-    border-radius: 20px;
-    orientation: vertical;
-    spacing: 0px;
-    background-color: #2c3e50;
-    border-color: #1abc9c;
-    border: 2px;
-    spacing: 10px;
+    padding:          10px;
+    border-radius:    20px;
+    orientation:      vertical;
+    spacing:          0px;
+    background-color: var(normal-background);
+    border:           2px;
+    spacing:          10px;
 }
 
 element selected {
-    background-color: #16a085;
+    background-color: var(selected-background);
 }
 
 element normal.active {
-    background-color: #27ae60;
+    background-color: var(active-background);
 }
 
 element alternate.active {
-    background-color: #27ae60;
+    background-color: var(active-background);
 }
 
 element-icon {
-    background-color: Black;
-    border-radius: 10px;
-    size: 20%;
+    background-color: var(preview-background);
+    border-radius:    10px;
+    size:             20%;
 }
 
 element-text {
-    text-color: #ecf0f1;
     horizontal-align: 0.5;
 }

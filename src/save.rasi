@@ -3,10 +3,6 @@ configuration {
     cycle: false;
 }
 
-* {
-    background-color: transparent;
-}
-
 element {
     padding: 1px ;
     cursor:  pointer;
@@ -15,18 +11,17 @@ element {
 }
 
 element normal.normal {
-    background-color: #2c3e50;
-    text-color:       #bdc3c7;
+    background-color: var(normal-background);
+    text-color:       var(faded-text-color);
 }
 
 element selected.normal {
-    background-color: #16a085;
-    text-color:       #ecf0f1;
+    background-color: var(selected-background);
 }
 
 element alternate.normal {
-    background-color: #34495e;
-    text-color:       #bdc3c7;
+    background-color: var(alternate-background);
+    text-color:       var(faded-text-color);
 }
 
 element-text {
@@ -44,37 +39,35 @@ element-icon {
 }
 
 window {
-    padding: 0px;
-    border: 0px;
-    width: 60%;
+    padding:      0px;
+    border:       0px;
+    width:        60%;
     transparency: "real";
 }
 
 mainbox {
-    padding: 0;
-    border:  0;
-    spacing: 10px;
+    padding:  0;
+    border:   0;
+    spacing:  10px;
     children: [ inputbar, message, listview ];
 }
 
 message {
-    background-color: #2c3e50;
-    border-radius: 10px;
-    border: 2px;
-    border-color: #1abc9c;
-    padding: 8px 20px;
-    spacing:    0px;
+    background-color: var(normal-background);
+    border-radius:    10px;
+    border:           2px;
+    padding:          8px 20px;
+    spacing:          0px;
 }
 
 listview {
-    scrollbar:    true;
-    fixed-height: 0;
-    background-color: #2c3e50;
-    border-radius: 10px;
-    border: 2px;
-    border-color: #1abc9c;
-    padding: 15px 20px;
-    spacing:    0px;
+    scrollbar:        true;
+    fixed-height:     0;
+    background-color: var(normal-background);
+    border-radius:    10px;
+    border:           2px;
+    padding:          15px 20px;
+    spacing:          0px;
 }
 
 scrollbar {
@@ -82,35 +75,33 @@ scrollbar {
     padding:      0;
     handle-width: 8px ;
     border:       0;
-    handle-color: #7f8c8d;
+    handle-color: var(scrollbar-handle-color);
 }
 
 inputbar {
-    children:   [ "prompt", "textbox-prompt-colon", "entry" ];
-    background-color: #2c3e50;
-    border-radius: 10px;
-    border: 2px;
-    border-color: #1abc9c;
-    padding: 8px 20px;
-    spacing:    0px;
+    children:         [ "prompt", "textbox-prompt-colon", "entry" ];
+    background-color: var(normal-background);
+    border-radius:    10px;
+    border:           2px;
+    padding:          8px 20px;
+    spacing:          0px;
 }
 
 entry {
-    text-color:        #ecf0f1;
     cursor:            text;
     spacing:           0;
-    placeholder-color: #7f8c8d;
+    placeholder-color: var(placeholder-color);
     placeholder:       "Enter filename for screenshot file";
 }
 
 prompt {
     spacing:    0;
-    text-color: #1abc9c;
+    text-color: var(border-color);
 }
 
 textbox-prompt-colon {
     margin:     0px 0.3000em 0.0000em 0.0000em ;
     expand:     false;
     str:        ":";
-    text-color: #95a5a6;
+    text-color: var(separator-color);
 }

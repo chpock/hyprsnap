@@ -1,0 +1,14 @@
+* {
+    background-color:       transparent;
+    border-color:           #1abc9c;
+    text-color:             #ecf0f1;
+    faded-text-color:       #bdc3c7;
+    normal-background:      #2c3e50;
+    alternate-background:   #34495e;
+    selected-background:    #16a085;
+    active-background:      #27ae60;
+    preview-background:     #000000;
+    scrollbar-handle-color: #7f8c8d;
+    placeholder-color:      #7f8c8d;
+    separator-color:        #95a5a6;
+}
