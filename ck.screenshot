@@ -532,10 +532,10 @@ while true; do
                 -theme "$ROFI_THEME_FILE" -pid "$ROFI_PID"
             rm -f "$ROFI_PID"
 
+            SCREENSHOT_FILE_FULL="$(cat "$TEMP_FILE_CURRENT_FILE")"
             [ -n "$SCREENSHOT_FILE_FULL" ] || continue
 
-            SCREENSHOT_FILE_FULL="$(cat "$TEMP_FILE_CURRENT_FILE")"
-            [ "${SCREENSHOT_FILE_FULL#.png}" != "$SCREENSHOT_FILE_FULL" ] \
+            [ "${SCREENSHOT_FILE_FULL%.png}" != "$SCREENSHOT_FILE_FULL" ] \
                 || SCREENSHOT_FILE_FULL="${SCREENSHOT_FILE_FULL}.png"
 
             ! save_as "$AREA_SCREENSHOT" "$SCREENSHOT_FILE_FULL" || exit 0
