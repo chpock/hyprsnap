@@ -1,0 +1,47 @@
+---
+name: Release
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set version
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          RELEASE_VERSION="$(echo "$RELEASE_VERSION" | tr -d 'v')"
+          sed -i "s/^\(VERSION\)=.*/\1=$RELEASE_VERSION/" ck.screenshot
+
+      - name: Check version
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          if ! VERSION="$(./ck.screenshot --version)"; then
+              echo "ERROR: failed to get version."
+              exit 1
+          fi
+          if [ "v$VERSION" != "$RELEASE_VERSION" ]; then
+              echo "ERROR: version mismatch: 'v$VERSION' != '$RELEASE_VERSION'"
+              exit 1
+          fi
+
+      - name: Create Release with Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ck.screenshot
+          draft: false
+          prerelease: false
+          make_latest: true
+          fail_on_unmatched_files: true
+          generate_release_notes: true
