@@ -19,6 +19,16 @@
 
 set -e
 
+VERSION=0.0.0
+
+if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+    echo "$VERSION"
+    exit 0
+elif [ "$1" = "--help" ]; then
+    echo "Usage: $0 [--version|--help]"
+    exit 0
+fi
+
 rofi_item() {
     if [ -z "$2" ]; then
         printf '%s\n' "$1"
