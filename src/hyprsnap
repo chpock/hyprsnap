@@ -2,7 +2,7 @@
 
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2025 Konstantin Kushnir <chpock@gmail.com>
-# Source: https://github.com/chpock/ck.screenshot
+# Source: https://github.com/chpock/hyprsnap
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -173,7 +173,7 @@ esac
 SELF_DIR="$(cd "$(dirname "$0")"; pwd)"
 SELF_FILE="$SELF_DIR/$(basename "$0")"
 
-LOCK_FILE="${XDG_RUNTIME_DIR:-${XDG_CACHE_DIR:-$HOME/.cache}}/ck.screenshot.lock"
+LOCK_FILE="${XDG_RUNTIME_DIR:-${XDG_CACHE_DIR:-$HOME/.cache}}/hyprsnap.lock"
 
 # Don't do anything if another instance is running
 [ -e "$LOCK_FILE" ] && kill -0 "$(cat "$LOCK_FILE")" >/dev/null 2>&1 && exit || :

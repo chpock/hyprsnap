@@ -21,13 +21,13 @@ jobs:
           RELEASE_VERSION: ${{ github.ref_name }}
         run: |
           RELEASE_VERSION="$(echo "$RELEASE_VERSION" | tr -d 'v')"
-          sed -i "s/^\(VERSION\)=.*/\1=$RELEASE_VERSION/" ck.screenshot
+          sed -i "s/^\(VERSION\)=.*/\1=$RELEASE_VERSION/" hyprsnap
 
       - name: Check version
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
         run: |
-          if ! VERSION="$(./ck.screenshot --version)"; then
+          if ! VERSION="$(./hyprsnap --version)"; then
               echo "ERROR: failed to get version."
               exit 1
           fi
@@ -39,7 +39,7 @@ jobs:
       - name: Create Release with Assets
         uses: softprops/action-gh-release@v2
         with:
-          files: ck.screenshot
+          files: hyprsnap
           draft: false
           prerelease: false
           make_latest: true
