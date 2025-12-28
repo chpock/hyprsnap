@@ -446,7 +446,7 @@ while true; do
             'Save as...' \
             'Annotate' \
             'Edit' \
-            'Choose area' \
+            'Select area' \
             'Make new screenshot' \
             'Cancel'
 
@@ -469,7 +469,7 @@ while true; do
             2) ACTION='save_as';;
             3) ACTION='annotate';;
             4) ACTION='edit';;
-            5) ACTION='choose_area';;
+            5) ACTION='select_area';;
             6) ACTION='retry';;
             *) ACTION='cancel';;
         esac
@@ -559,9 +559,9 @@ while true; do
 
         fi
 
-        if [ "$ACTION" = 'choose_area' ]; then
+        if [ "$ACTION" = 'select_area' ]; then
 
-            set -- "region:Selected region:$SCREENSHOT_REGION" \
+            set -- "region:Region:$SCREENSHOT_REGION" \
                 "window:Window:$SCREENSHOT_WINDOW_REGION" \
                 "desktop:Desktop:$SCREENSHOT_DESKTOP_REGION" \
                 "screen:Screen:$SCREENSHOT_SCREEN_REGION" \
