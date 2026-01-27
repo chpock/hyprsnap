@@ -194,6 +194,10 @@ if [ "$(hyprctl keyword layerrule "noanim,selection" 2>&1)" != "ok" ]; then
         hyprctl keyword 'layerrule[hyprsnap_no_anim_selection]:no_anim on' || :
         # Reload the rules, this to avoid hyprland bug related to layerrule. See:
         # https://github.com/hyprwm/Hyprland/discussions/12950
+        #
+        # hyprland versions 0.53.0-0.53.3 are affected to this bug.
+        # Perhaps it is resolved in 0.53.4 by the PR:
+        # https://github.com/hyprwm/Hyprland/pull/13080
         hyprctl keyword 'windowrule[hyprsnap_no_anim_selection]:enable off' || :
     } >/dev/null 2>&1
 fi
