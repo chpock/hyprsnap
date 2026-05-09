@@ -54,7 +54,7 @@ jobs:
           sed -i "s/PLACEHOLDER_VERSION/$RELEASE_VERSION/g" aur/PKGBUILD
 
       - name: Publish to AUR
-        uses: KSXGitHub/github-actions-deploy-aur@v4.1.1
+        uses: KSXGitHub/github-actions-deploy-aur@v4.1.3
         with:
           pkgname: hyprsnap
           pkgbuild: ./aur/PKGBUILD
