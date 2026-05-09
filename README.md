@@ -102,4 +102,4 @@ Press `Enter` to confirm and save the file to the default directory.
 
 ## Copyright
 
-Copyright (c) 2025 Konstantin Kushnir <chpock@gmail.com>
+Copyright (C) 2025-2026 Kostiantyn Kushnir <chpock@gmail.com>

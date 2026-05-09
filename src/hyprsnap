@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Copyright (C) 2025 Konstantin Kushnir <chpock@gmail.com>
+# Copyright (C) 2025-2026 Kostiantyn Kushnir <chpock@gmail.com>
 # Source: https://github.com/chpock/hyprsnap
 #
 # This program is free software: you can redistribute it and/or modify
@@ -176,7 +176,14 @@ SELF_FILE="$SELF_DIR/$(basename "$0")"
 LOCK_FILE="${XDG_RUNTIME_DIR:-${XDG_CACHE_DIR:-$HOME/.cache}}/hyprsnap.lock"
 
 # Don't do anything if another instance is running
-[ -e "$LOCK_FILE" ] && kill -0 "$(cat "$LOCK_FILE")" >/dev/null 2>&1 && exit || :
+if [ -e "$LOCK_FILE" ]; then
+    SELF_PID="$(cat "$LOCK_FILE")"
+    if kill -0 "$SELF_PID" >/dev/null 2>&1; then
+        echo "ERROR: another hyprsnap instance with PID $SELF_PID is already running" >&2
+        exit 1
+    fi
+    unset SELF_PID
+fi
 echo "$$" > "$LOCK_FILE"
 
 # Make sure we don't have these environment variables
