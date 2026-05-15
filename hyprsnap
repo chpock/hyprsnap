@@ -21,13 +21,37 @@ set -e
 
 VERSION=0.0.0
 
-if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
-    echo "$VERSION"
-    exit 0
-elif [ "$1" = "--help" ]; then
-    echo "Usage: $0 [--version|--help]"
-    exit 0
-fi
+options=$(getopt -o vho: --long version,help,output-dir: -- "$@") || exit 1
+eval set -- "$options"
+SCREENSHOT_FILE_DIR="$HOME/Pictures/Screenshots"
+while true; do
+    case "$1" in
+        -v | --version)
+            echo "$VERSION"
+            exit 0
+            ;;
+
+        -h | --help)
+            echo "Usage: $0 [--version|--help|-o DIR]"
+            exit 0
+            ;;
+
+        -o | --output-dir)
+            shift
+            SCREENSHOT_FILE_DIR="$1"
+            ;;
+
+        --)
+            shift
+            break
+            ;;
+
+        *)
+            break
+            ;;
+    esac
+    shift
+done
 
 rofi_item() {
     if [ -z "$2" ]; then
@@ -455,7 +479,6 @@ while true; do
     ACTION_IDX=0
     AREA_ACTION="region"
     AREA_SCREENSHOT="$SCREENSHOT_REGION"
-    SCREENSHOT_FILE_DIR="$HOME/Pictures/Screenshots"
     SCREENSHOT_FILE_NAME="screenshot-$(date '+%Y-%m-%d_%H%M%S')${WINDOW_NAME_SUFFIX}.png"
 
     mkdir -p "$SCREENSHOT_FILE_DIR"
