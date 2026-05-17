@@ -263,6 +263,29 @@ save_as() {
     magick "$1" -strip -define png:compression-level=9 "PNG:$2"
 }
 
+# grim can sometimes hang for no apparent reason. It is unclear whose bug this is, either Hyprland's
+# or grim's. It is most likely Hyprland, because this started happening in Hyprland version 0.54.3.
+# However, it may also be an incompatibility between my old grim v1.5.0 and updates in Hyprland.
+# In any case, this hang is very annoying, and something needs to be done about it.
+# The best way to deal with it is to run grim with a timeout. This function does exactly that.
+# It tries to run grim three times with a 2-second timeout.
+#
+# This function intentionally runs in a subshell because it is launched as a background process.
+run_grim() (
+    MAX_ATTEMPTS=3
+    ATTEMPT=0
+    while true; do
+        timeout 2s grim "$@" && R=0 || R=$?
+        [ "$R" -eq 124 ] || return "$R"
+        ATTEMPT=$(( ATTEMPT + 1 ))
+        if [ "$ATTEMPT" -ge "$MAX_ATTEMPTS" ]; then
+            echo "Maximum attempts reached while running grim." >&2
+            return "$R"
+        fi
+        echo "WARNING: grim is stuck, retrying..."
+    done
+)
+
 get_nth() {
     IDX="$1"
     shift
@@ -360,7 +383,7 @@ while true; do
         SCREENSHOT_WHOLE_REGION="$(mktemp)"
         export SCREENSHOT_WHOLE_REGION
     fi
-    grim -g "$WHOLE_REGION" -t ppm "$SCREENSHOT_WHOLE_REGION" &
+    run_grim -g "$WHOLE_REGION" -t ppm "$SCREENSHOT_WHOLE_REGION" &
     WAIT_PIDS="$!"
 
     REGION=$(slurp -d -b '#ffffff20' -c '#336699EE') || unset REGION
@@ -399,7 +422,7 @@ while true; do
             SCREENSHOT_DESKTOP_REGION="$(mktemp)"
             export SCREENSHOT_DESKTOP_REGION
         fi
-        grim -g "$DESKTOP_REGION" -t ppm "$SCREENSHOT_DESKTOP_REGION" &
+        run_grim -g "$DESKTOP_REGION" -t ppm "$SCREENSHOT_DESKTOP_REGION" &
         WAIT_PIDS="$WAIT_PIDS $!"
     elif [ -n "$SCREENSHOT_DESKTOP_REGION" ]; then
         rm -f "$SCREENSHOT_DESKTOP_REGION"
@@ -411,7 +434,7 @@ while true; do
             SCREENSHOT_SCREEN_REGION="$(mktemp)"
             export SCREENSHOT_SCREEN_REGION
         fi
-        grim -g "$SCREEN_REGION" -t ppm "$SCREENSHOT_SCREEN_REGION" &
+        run_grim -g "$SCREEN_REGION" -t ppm "$SCREENSHOT_SCREEN_REGION" &
         WAIT_PIDS="$WAIT_PIDS $!"
     elif [ -n "$SCREENSHOT_SCREEN_REGION" ]; then
         rm -f "$SCREENSHOT_SCREEN_REGION"
@@ -454,7 +477,7 @@ while true; do
             [ -z "$WINDOW_NAME_SUFFIX" ] || WINDOW_NAME_SUFFIX="-$WINDOW_NAME_SUFFIX"
         fi
         WINDOW_REGION="${WINDOW_REGION%%|*}"
-        grim -g "$WINDOW_REGION" -t ppm "$SCREENSHOT_WINDOW_REGION" &
+        run_grim -g "$WINDOW_REGION" -t ppm "$SCREENSHOT_WINDOW_REGION" &
         WAIT_PIDS="$WAIT_PIDS $!"
     elif [ -n "$SCREENSHOT_WINDOW_REGION" ]; then
         rm -f "$SCREENSHOT_WINDOW_REGION"
@@ -467,7 +490,7 @@ while true; do
         export SCREENSHOT_REGION
     fi
 
-    grim -g "$REGION" -t ppm "$SCREENSHOT_REGION"
+    run_grim -g "$REGION" -t ppm "$SCREENSHOT_REGION"
 
     for WAIT_PID in $WAIT_PIDS; do
         wait "$WAIT_PID"

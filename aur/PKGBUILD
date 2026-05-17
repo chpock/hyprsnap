@@ -7,7 +7,7 @@ pkgdesc="A feature-rich Wayland screenshot utility for Linux/Hyprland. Uses slur
 arch=('any')
 url="https://github.com/chpock/hyprsnap"
 license=('GPL-3.0-or-later')
-depends=('jq' 'hyprland' 'rofi' 'imagemagick' 'hyprpicker' 'grim' 'slurp' 'wl-clipboard' 'satty' 'pinta')
+depends=('jq' 'hyprland' 'rofi' 'imagemagick' 'coreutils' 'hyprpicker' 'grim' 'slurp' 'wl-clipboard' 'satty' 'pinta')
 source=("hyprsnap::${url}/releases/download/v${pkgver}/hyprsnap")
 sha256sums=('PLACEHOLDER_CHECKSUM')
 

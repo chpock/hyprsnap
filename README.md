@@ -25,6 +25,7 @@ It acts as a comprehensive wrapper around existing Wayland tools, providing a se
   * `rofi` (Menu interface)
   * `jq` (JSON parsing for hyprctl)
   * `imagemagick` (Image conversion)
+  * `coreutils` (for `timeout`)
 * **Wayland Utils:**
   * `hyprpicker` (Screen freezing)
   * `grim` (Screenshot capture)
