@@ -553,7 +553,7 @@ while true; do
             # Save as temporary file to make sure that convertation is sucessful
             TEMP_SCREENSHOT_CONVERTED="$(mktemp)"
             if save_as "$AREA_SCREENSHOT" "$TEMP_SCREENSHOT_CONVERTED"; then
-                if wl-copy --foreground --type 'image/png' < "$TEMP_SCREENSHOT_CONVERTED"; then
+                if wl-copy --type 'image/png' < "$TEMP_SCREENSHOT_CONVERTED"; then
                     rm -f "$TEMP_SCREENSHOT_CONVERTED"
                     exit 0
                 fi
